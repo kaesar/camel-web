@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: ms-camel-notification
+  datasource:
+    url: jdbc:h2:mem:notifications
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+
+camel:
+  springboot:
+    name: notification-service
+  component:
+    platform-http:
+      enabled: true
+
+notification:
+  storage:
+    path: ${NOTIFICATION_STORAGE_PATH:./out}
+    file: ${NOTIFICATION_STORAGE_FILE:notifications.json}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always
